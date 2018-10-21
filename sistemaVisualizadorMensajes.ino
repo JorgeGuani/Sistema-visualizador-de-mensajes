@@ -73,7 +73,7 @@ void loop() {
     //En caso de que la entrada no sea un estado climatológico,
     //Quiere decir que corresponde a un mensaje:
     if(!esClima) {
-      lcd.begin(16,1);
+      //lcd.begin(16,1);
       lcd.setCursor(16,0);
       while(Serial.available() > 0) {
         lcd.autoscroll();
@@ -87,16 +87,15 @@ void loop() {
 
 //MÉTODOS PARA CALCULAR ESTADOS CLIMATOLÓGICOS:
 void mostrarTemperatura() {
-  lcd.begin(16,2);
   lcd.noAutoscroll();
   while(input == '1'){
     voltaje = analogRead(sensortemperatura)*3.3/1023;
     valorTemperatura = voltaje*100;
     lcd.home();
-    lcd.print("Temperatura:");
-    lcd.setCursor(0,1);
-    lcd.print(valorTemperatura);
+    lcd.print("Temperatura: ");
+    lcd.print((int)valorTemperatura);
     lcd.print("C");
+    lcd.print("  ");
     Serial.println(valorTemperatura);
     delay(1000);
     if(Serial.read() != 10) break; //Si se detecta un cambio en la entrada serial      
@@ -104,14 +103,13 @@ void mostrarTemperatura() {
 }
 
 void mostrarHumedad() {
-  lcd.begin(16,2);
   lcd.noAutoscroll();
   while(input == '2'){
     valorHumedad = dht.readHumidity(); //Se lee la humedad
     lcd.home();
-    lcd.print("Humedad:");
-    lcd.setCursor(0,1);
+    lcd.print("Humedad: ");
     lcd.print(valorHumedad);
+    lcd.print("  ");
     Serial.println("Humedad: ");
     Serial.println(valorHumedad);
     delay(1000);
@@ -120,7 +118,6 @@ void mostrarHumedad() {
 }
 
 void mostrarLuminosidad() {
-  lcd.begin(16,2);
   lcd.noAutoscroll();
   while(input == '3'){
     valorAnalogicoLuz = analogRead(PINLUZ);
@@ -128,7 +125,6 @@ void mostrarLuminosidad() {
                   ((long)B*Rc*(1024-valorAnalogicoLuz));
     lcd.home();
     lcd.print("luminosidad: ");
-    lcd.setCursor(0,1);
     lcd.print(valorLuminosidad);
     lcd.print("  ");
     delay(1000);
