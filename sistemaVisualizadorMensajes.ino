@@ -15,6 +15,13 @@
 float voltaje = 0;
 float valorTemperatura = 0;
 
+const long A = 1000; //Resistencia en oscuridad en KΩ
+const int B = 15; //Resistencia a la luz (10 Lux) en KΩ
+const int Rc = 10; //Resistencia calibracion en KΩ
+const int PINLUZ = A1;
+int valorLuzAnalogica;
+int iluminacion;
+
 int input;
 boolean esClima;
 
@@ -65,12 +72,17 @@ void mostrarTemperatura() {
     voltaje = analogRead(sensortemperatura)*3.3/1023;
     valorTemperatura = voltaje*100;
     lcd.home();
-    lcd.print("Temp: ");
+    lcd.print("Temperatura: ");
+    lcd.setCursor(0,1);
     lcd.print(valorTemperatura);
     lcd.print("C");
     Serial.println(valorTemperatura);
     delay(1000);
-    nuevaEntrada();
+    //nuevaEntrada();
+    //input = Serial.read();
+    //Serial.println(input);
+    if(Serial.read() != 10) break;
+        
   }
 }
 
@@ -84,15 +96,24 @@ void mostrarHumedad() {
 
 void mostrarLuminosidad() {
   while(input == '3'){
+    valorLuzAnalogica = analogRead(PINLUZ);
+    iluminacion = ((long)valorLuzAnalogica*A*10)/
+                  ((long)B*Rc*(1024-valorLuzAnalogica));
+    lcd.clear();
     lcd.home();
-    lcd.write("luz");
-    nuevaEntrada();
+    lcd.print("luminosidad: ");
+    lcd.setCursor(0,1);
+    lcd.print(iluminacion);
+    lcd.print("  ");
+    delay(1000);
+    if(Serial.read() != 10) break;
   }
 }
 
 //Sirve para detectar si se ingresa una nueva entrada
 void nuevaEntrada() {
   if(Serial.available() > 0) {
-    input = Serial.read();    
+    input = Serial.read();
+    Serial.println(input);    
   }
 }
