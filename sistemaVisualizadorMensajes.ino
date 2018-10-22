@@ -58,7 +58,7 @@ void loop() {
   //Verifica el valor de la temperatura y si es excedente suena la alarma
   voltaje = analogRead(sensortemperatura) * 3.3 / 1023;
   valorTemperatura = voltaje * 100;
-  if (valorTemperatura > 25) {
+  if (valorTemperatura > 19) {
     digitalWrite(LED, HIGH);
     tone(BUZZER, 1000);
     delay(200);
@@ -77,7 +77,6 @@ void loop() {
   }
 
   if (Serial.available()) {
-    //Verificar si la temperatura es mayor a 18
     Serial.println("temp");
     delay(100);
     input = Serial.read();
@@ -93,7 +92,6 @@ void loop() {
     //En caso de que la entrada no sea un estado climatológico,
     //Quiere decir que corresponde a un mensaje:
     if (!esClima) {
-      //lcd.begin(16,1);
       lcd.setCursor(16, 0);
       while (Serial.available() > 0) {
         lcd.autoscroll();
@@ -111,7 +109,7 @@ void mostrarTemperatura() {
   while (input == '1') {
     voltaje = analogRead(sensortemperatura) * 3.3 / 1023;
     valorTemperatura = voltaje * 100;
-    if (valorTemperatura > 25) {
+    if (valorTemperatura > 19) {
       digitalWrite(LED, HIGH);
       tone(BUZZER, 1000);
     } else {
