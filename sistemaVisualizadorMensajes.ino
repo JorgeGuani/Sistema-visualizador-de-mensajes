@@ -1,7 +1,7 @@
 /*
- * Librería libre para conexión entre java y arduino
- * https://github.com/PanamaHitek/PanamaHitek_Arduino/releases/tag/3.0.0
- */
+   Librería libre para conexión entre java y arduino
+   https://github.com/PanamaHitek/PanamaHitek_Arduino/releases/tag/3.0.0
+*/
 //Librerías usadas
 #include <LiquidCrystal.h> //LCD
 #include "DHT.h"           //Sensor de humedad
@@ -13,6 +13,10 @@
 #define D5 9
 #define D6 10
 #define D7 11
+
+//Variables para el led y buzzer
+#define BUZZER 8
+#define LED 12
 
 //Variables para el sensor de humedad
 #define DHTPIN 2          //Entrada digital 2
@@ -38,49 +42,65 @@ int input;
 boolean esClima;
 
 //Indicarle al LCD sus pines de alimentación
-LiquidCrystal lcd(RS,E,D4,D5,D6,D7);
+LiquidCrystal lcd(RS, E, D4, D5, D6, D7);
 
 
 void setup() {
-  lcd.begin(16,1);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(LED, OUTPUT);
+  lcd.begin(16, 1);
   dht.begin();
   Serial.begin(9600);
 }
 
 
 void loop() {
+  //Verifica el valor de la temperatura y si es excedente suena la alarma
+  voltaje = analogRead(sensortemperatura) * 3.3 / 1023;
+  valorTemperatura = voltaje * 100;
+  if (valorTemperatura > 25) {
+    digitalWrite(LED, HIGH);
+    tone(BUZZER, 1000);
+    delay(200);
+  } else {
+    digitalWrite(LED, LOW);
+    noTone(BUZZER);
+  }
+  
   //Analizadores del clima
-  if(input == '1') {
-    mostrarTemperatura();  
-  } else if(input == '2') {
+  if (input == '1') {
+    mostrarTemperatura();
+  } else if (input == '2') {
     mostrarHumedad();
-  } else if(input == '3') {
+  } else if (input == '3') {
     mostrarLuminosidad();
   }
 
-  if(Serial.available()) {
+  if (Serial.available()) {
+    //Verificar si la temperatura es mayor a 18
+    Serial.println("temp");
     delay(100);
     input = Serial.read();
     esClima = false;
     lcd.clear();
 
     //Checa si la entrada corresponde a mostrar algún estado climatológico
-    if(Serial.available() > 0) {
-      if(input == '1' || input == '2' || input == '3')
-      esClima = true;        
+    if (Serial.available() > 0) {
+      if (input == '1' || input == '2' || input == '3')
+        esClima = true;
     }
 
     //En caso de que la entrada no sea un estado climatológico,
     //Quiere decir que corresponde a un mensaje:
-    if(!esClima) {
+    if (!esClima) {
       //lcd.begin(16,1);
-      lcd.setCursor(16,0);
-      while(Serial.available() > 0) {
+      lcd.setCursor(16, 0);
+      while (Serial.available() > 0) {
         lcd.autoscroll();
         lcd.write(Serial.read());  //Escribe el mensaje en el LCD
         delay(275);
       }
-    }  
+    }
   }
 }
 
@@ -88,9 +108,16 @@ void loop() {
 //MÉTODOS PARA CALCULAR ESTADOS CLIMATOLÓGICOS:
 void mostrarTemperatura() {
   lcd.noAutoscroll();
-  while(input == '1'){
-    voltaje = analogRead(sensortemperatura)*3.3/1023;
-    valorTemperatura = voltaje*100;
+  while (input == '1') {
+    voltaje = analogRead(sensortemperatura) * 3.3 / 1023;
+    valorTemperatura = voltaje * 100;
+    if (valorTemperatura > 25) {
+      digitalWrite(LED, HIGH);
+      tone(BUZZER, 1000);
+    } else {
+      digitalWrite(LED, LOW);
+      noTone(BUZZER);
+    }
     lcd.home();
     lcd.print("Temperatura: ");
     lcd.print((int)valorTemperatura);
@@ -98,13 +125,13 @@ void mostrarTemperatura() {
     lcd.print("  ");
     Serial.println(valorTemperatura);
     delay(1000);
-    if(Serial.read() != 10) break; //Si se detecta un cambio en la entrada serial      
+    if (Serial.read() != 10) break; //Si se detecta un cambio en la entrada serial
   }
 }
 
 void mostrarHumedad() {
   lcd.noAutoscroll();
-  while(input == '2'){
+  while (input == '2') {
     valorHumedad = dht.readHumidity(); //Se lee la humedad
     lcd.home();
     lcd.print("Humedad: ");
@@ -113,21 +140,21 @@ void mostrarHumedad() {
     Serial.println("Humedad: ");
     Serial.println(valorHumedad);
     delay(1000);
-    if(Serial.read() != 10) break; //Si se detecta un cambio en la entrada serial      
+    if (Serial.read() != 10) break; //Si se detecta un cambio en la entrada serial
   }
 }
 
 void mostrarLuminosidad() {
   lcd.noAutoscroll();
-  while(input == '3'){
+  while (input == '3') {
     valorAnalogicoLuz = analogRead(PINLUZ);
-    valorLuminosidad = ((long)valorAnalogicoLuz*A*10)/
-                  ((long)B*Rc*(1024-valorAnalogicoLuz));
+    valorLuminosidad = ((long)valorAnalogicoLuz * A * 10) /
+                       ((long)B * Rc * (1024 - valorAnalogicoLuz));
     lcd.home();
-    lcd.print("luminosidad: ");
+    lcd.print("Luminosidad: ");
     lcd.print(valorLuminosidad);
     lcd.print("  ");
     delay(1000);
-    if(Serial.read() != 10) break;
+    if (Serial.read() != 10) break;
   }
 }
