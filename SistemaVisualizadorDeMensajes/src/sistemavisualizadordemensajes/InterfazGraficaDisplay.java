@@ -45,6 +45,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
 public class InterfazGraficaDisplay extends JFrame {
@@ -79,23 +81,84 @@ public class InterfazGraficaDisplay extends JFrame {
     private boolean climaPresionado = false;
     // Fin de la delaración de variables
     
-    // Librería para la comunicación serial
-    PanamaHitek_Arduino arduino = new PanamaHitek_Arduino(); 
+    // Librería para la comunicación serial (envío de señales al arduino)
+    PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
+    // Para la recepción de datos del teclado matricial
     PanamaHitek_Arduino tecladoMatricial = new PanamaHitek_Arduino();
+    // Detecta el botón presionado del teclado matricial
+    SerialPortEventListener listener = new SerialPortEventListener() {
+        @Override
+        public void serialEvent(SerialPortEvent spe) {
+            try {
+                if(tecladoMatricial.isMessageAvailable()) {
+                    recibirDato(tecladoMatricial.printMessage());      
+                }
+            } catch (SerialPortException | ArduinoException ex) {
+                Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        private void recibirDato(String printMessage) {
+            // Recibe el dato del teclado matricial
+            if(printMessage.startsWith("1")) {
+                // Colocarse al inicio de la lista de mensajes                
+                listaMensajes.setSelectedIndex(0);
+            }
+            if(printMessage.startsWith("2")) {
+                if(listaMensajes.getSelectedIndex() != 0) {
+                    // Avanza al siguiente mensaje
+                    listaMensajes.setSelectedIndex(listaMensajes.getSelectedIndex()-1);
+                }
+            }
+            if(printMessage.startsWith("8")) {
+                // Retrocede al siguiente mensaje
+                if(listaMensajes.getSelectedIndex() != listaMensajes.getModel().getSize()-1) {
+                    listaMensajes.setSelectedIndex(listaMensajes.getSelectedIndex()+1);
+                }
+            }
+            if(printMessage.startsWith("5")) {
+                //Muestra en el display el mensaje seleccionado
+                mostrarDesdeTecladoMatricial();
+            }
+        }
+        
+        private void mostrarDesdeTecladoMatricial() {
+            if(climaPresionado) {
+                try {
+                    arduino.sendData("4");
+                } catch (ArduinoException | SerialPortException ex) {
+                    Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                climaPresionado = false;
+            }
+            char primerLetra = listaMensajes.getSelectedValue().charAt(0);
+            try {
+                arduino.sendData(primerLetra + listaMensajes.getSelectedValue());
+                arduino.sendData(" - "+model2.getElementAt(listaMensajes.getSelectedIndex()).toString());                
+            } catch (ArduinoException | SerialPortException ex) {
+                Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }   
+    };
     
 
     public InterfazGraficaDisplay() {
         inicializarComponentes();
         posicionarVentana();    
 
-        // Iniciar la comuniación serial:
+        // Iniciar la comuniación serial (arduino 1):
         try {
             arduino.arduinoTX("/dev/ttyUSB0", 9600);
         } catch (ArduinoException ex) {
             Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        //tecladoMatricial.arduinoRX("/dev/ttyUSB1", 9600, listener);
+        // Comunicación serial para la recepción de datos (arduino 2):
+        try {
+            tecladoMatricial.arduinoRX("/dev/ttyUSB1", 9600, listener);
+        } catch (ArduinoException | SerialPortException ex) {
+            Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void inicializarComponentes() {
