@@ -154,7 +154,8 @@ sudo sh netbeans-8.1-linux.sh
 ## Paso 5. Ejecutar la aplicación en Netbeans IDE
 - Abre Netbeans IDE
 - Importa el proyecto llamado SistemaVisualizadorDeMensajes
-- Importar librería PanamaHitek_arduino
+- Importar librería PanamaHitek_arduino (que es la que permite la comunicación serial entre arduino y java)
+   http://panamahitek.com/libreria-panamahitek_arduino/
 ```
    Clic derecho en bibliotecas (del proyecto)
    Añadir archivo JAR/Carpeta
@@ -186,7 +187,7 @@ sudo sh netbeans-8.1-linux.sh
  - La interfaz de hardware para navegar entre los mensajes es el teclado matricial
  - La interfaz de software que permite la comunicación serial, añadir y eliminar mensajes es la aplicación hecha en java (Netbeans IDE)
  
- **Funcionalidad extra:**
+  **Funcionalidad extra:**
  - Alarma que suena y prende cuando la temperatura excede a un cierto valor.
 
 <img src="Imagenes/Montaje/fotoMontaje1.jpg" width="500">
