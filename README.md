@@ -173,6 +173,12 @@ sudo sh netbeans-8.1-linux.sh
 ### Lista de mensajes añadidos
 <img src="Imagenes/Aplicacion/variosMensajesAgregados.png" width="400">
 
+## Control del teclado matricial
+ - 1 - Ir al inicio de la lista de mensajes
+ - 2 - Ir al mensaje anterior
+ - 8 - Ir al mensaje posterior
+ - 5 - Mostrar mensaje actual
+
 ## Resultados 📌
 <img src="Imagenes/Montaje/fotoMontaje1.jpg" width="500">
 <img src="Imagenes/Montaje/fotoMontaje2.jpg" width="500">
