@@ -99,8 +99,10 @@ sudo sh netbeans-8.1-linux.sh
 ```
 **10. ¡Listo!**
 
+## Paso 2. Armar circuitos
+<img src="Imagenes/Diagramas/diagramaProtoboard.jpg" width="500">
 
-## Paso 2. Importar librerías de arduino
+## Paso 3. Importar librerías de arduino
 ### ¿Como importar librerías?
 **DHT11:** <br/>
  Descargar: <br/>
@@ -112,7 +114,7 @@ sudo sh netbeans-8.1-linux.sh
   En arduino IDE dirigirse a Herramientas/Gestionar librerías, buscar las librerías e instalarlas
   
 
-## Paso 3. Cargar programas a las placas arduino
+## Paso 4. Cargar programas a las placas arduino
 ### Programa arduino 1
 - Abre el arduino IDE en tu equipo
 - Carga en el IDE el archivo sistemaVisualizadorMensajes.ino
@@ -140,7 +142,7 @@ sudo sh netbeans-8.1-linux.sh
 ```
 - Carga el programa a la placa arduino
 
-## Paso 4. Ejecutar la aplicación en Netbeans IDE
+## Paso 5. Ejecutar la aplicación en Netbeans IDE
 - Abre Netbeans IDE
 - Importa el proyecto llamado SistemaVisualizadorDeMensajes
 - Importar librería PanamaHitek_arduino
@@ -150,4 +152,36 @@ sudo sh netbeans-8.1-linux.sh
    Buscar y seleccionar la librería PanamaHitek_Arduino-3.0.0.jar
 ```
 - Ejucutar aplicación
-<img src="Imagenes/Aplicacion/inicio.png" width="500">
+
+
+## Aplicación ⚙️
+### Inicio
+<img src="Imagenes/Aplicacion/inicio.png" width="400">
+
+### Añadir mensaje
+<img src="Imagenes/Aplicacion/agregarMensaje.png" width="400">
+
+### Lista de mensajes añadidos
+<img src="Imagenes/Aplicacion/variosMensajesAgregados.png" width="400">
+
+## Resultados 📌
+<img src="Imagenes/Montaje/fotoMontaje1.jpg" width="500">
+<img src="Imagenes/Montaje/fotoMontaje2.jpg" width="500">
+
+
+## Construido con 🛠️
+
+Arduino IDE
+* [Arduino](http://www.arduino.cc/) <br />
+
+Netbeans IDE
+* [NetBeans](https://netbeans.org/) <br/>
+
+Fritzing
+* [Fritzing](http://fritzing.org/home/) <br/>
+
+
+## Autores ✒️
+
+* **Jorge Enrique Aguado Guaní** - [JorgeGuani](https://github.com/JorgeGuani)
+* **Natalia Méndez Martínez** - [Yaxe9512](https://github.com/Yaxe9512)
