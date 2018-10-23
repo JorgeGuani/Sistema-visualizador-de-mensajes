@@ -46,7 +46,7 @@ A continuación se explicarán los pre-requisitos, su instalación, etc.
 -Driver instalado de la placa para arduino (Windows)
 ```
 
-## Instalación del sistema🔧
+## Instalación del sistema 🔧
 ## Paso 1. Instalar Netbeans 
 
 ### Instalación de Netbeans IDE con OpenJDK
@@ -100,7 +100,13 @@ sudo sh netbeans-8.1-linux.sh
 **10. ¡Listo!**
 
 ## Paso 2. Armar circuitos
+**Arduino 1**
+
 <img src="Imagenes/Diagramas/diagramaProtoboard.jpg" width="500">
+
+**Arduino 2**
+
+<img src="Imagenes/Diagramas/diagramaTecladoMatricial.jpg" width="500">
 
 ## Paso 3. Importar librerías de arduino
 ### ¿Como importar librerías?
@@ -109,10 +115,13 @@ sudo sh netbeans-8.1-linux.sh
  https://drive.google.com/drive/folders/0B0hsUkhqWH97dHFBeTNZd2ZyRjQ?fbclid=IwAR02XiuCEleWPzzFiiCz1LsigFftZ2w3A4RN7cNwJZCmmATRRy3CLEELFD8 <br/>
  Forma 1 - Descomprimir archivo DHT11 en carpeta /home/arduino/libraries <br/>
  Forma 2 - añadiendo el archivo .zip en arduino en Programas/Incluir librerías... <br/>
- 
+
+<img src="Imagenes/Librerias/incluirLibreria.jpg" width="400">
+
 **LiquidCrystal y keypad:** <br/>
   En arduino IDE dirigirse a Herramientas/Gestionar librerías, buscar las librerías e instalarlas
   
+<img src="Imagenes/Librerias/gestionarLibreria.jpg" width="400">
 
 ## Paso 4. Cargar programas a las placas arduino
 ### Programa arduino 1
@@ -154,7 +163,7 @@ sudo sh netbeans-8.1-linux.sh
 - Ejucutar aplicación
 
 
-## Aplicación ⚙️
+## Aplicación 🔩
 ### Inicio
 <img src="Imagenes/Aplicacion/inicio.png" width="400">
 
