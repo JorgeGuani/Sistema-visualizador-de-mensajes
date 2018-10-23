@@ -4,6 +4,20 @@ llegar un individuo pueda ver en un pequeño tablero electronico una serie de me
 
 <img src="Imagenes/Display/displayMensajeMostrandose.jpg" width="500">
 
+INTRODUCCION
+
+La temperatura es producto de la energía interna de un cuerpo, que tiene una característica relevante: la termodinámica, o la capacidad de generar 
+energía cinética, que es energía que se produce por el movimiento, es decir, el movimiento de todas las partículas que conformas ese cuerpo específico.
+Las partículas, mediante el movimiento, generan calor, lo cual se traduce de manera inmediata en variaciones de la temperatura del cuerpo.
+
+Humedad del aire. Es la cantidad de vapor de agua presente en el aire. Se puede expresar de forma absoluta mediante la humedad absoluta, o de forma 
+relativa mediante la humedad relativa o grado de humedad. ... Por ambas razones el aire caliente que contiene vapor de agua se eleva en la atmósfera.
+
+La luz se caracteriza por su naturaleza dual, dado que se comporta al mismo tiempo como una onda electromagnética (por tanto, energía) y como una 
+estructura integrada por pequeños corpúsculos denominados fotones (por tanto, materia). Esta condición permite explicar gran parte de sus propiedades 
+únicas, entre las que sobresale la capacidad de la luz de ser el objeto más veloz en el vacío, con una capacidad de desplazamiento de 300 mil kilómetros 
+por segundo.
+
 ## Objetivo
 Cada mensaje tiene las siguientes caracteristicas:
 - Muestra un mensaje que se entiende, con sólo 140 caracteres de espacio.
