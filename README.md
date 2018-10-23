@@ -100,7 +100,19 @@ sudo sh netbeans-8.1-linux.sh
 **10. ¡Listo!**
 
 
-## Paso 2. Cargar programas a los arduinos 
+## Paso 2. Importar librerías de arduino
+### ¿Como importar librerías?
+**DHT11:** <br/>
+ Descargar: <br/>
+ https://drive.google.com/drive/folders/0B0hsUkhqWH97dHFBeTNZd2ZyRjQ?fbclid=IwAR02XiuCEleWPzzFiiCz1LsigFftZ2w3A4RN7cNwJZCmmATRRy3CLEELFD8 <br/>
+ Forma 1 - Descomprimir archivo DHT11 en carpeta /home/arduino/libraries <br/>
+ Forma 2 - añadiendo el archivo .zip en arduino en Programas/Incluir librerías... <br/>
+ 
+**LiquidCrystal y keypad:** <br/>
+  En arduino IDE dirigirse a Herramientas/Gestionar librerías, buscar las librerías e instalarlas
+  
+
+## Paso 3. Cargar programas a las placas arduino
 ### Programa arduino 1
 - Abre el arduino IDE en tu equipo
 - Carga en el IDE el archivo sistemaVisualizadorMensajes.ino
@@ -128,7 +140,7 @@ sudo sh netbeans-8.1-linux.sh
 ```
 - Carga el programa a la placa arduino
 
-## Paso 3. Ejecutar la aplicación en Netbeans IDE
+## Paso 4. Ejecutar la aplicación en Netbeans IDE
 - Abre Netbeans IDE
 - Importa el proyecto llamado SistemaVisualizadorDeMensajes
 - Importar librería PanamaHitek_arduino
