@@ -180,6 +180,15 @@ sudo sh netbeans-8.1-linux.sh
  - 5 - Mostrar mensaje actual
 
 ## Resultados 📌
+ - Los 140 caracteres para cada mensaje son validados en la aplicación tras agregar mensaje
+ - Cuando se muestra un mensaje en el display al final viene la fecha de emisión
+ - La aplicación cuenta con 3 botones para mostrar en el display la temperatura, humedad y luminosidad
+ - La interfaz de hardware para navegar entre los mensajes es el teclado matricial
+ - La interfaz de software que permite la comunicación serial, añadir y eliminar mensajes es la aplicación hecha en java (Netbeans IDE)
+ 
+ **Funcionalidad extra:**
+ - Alarma que suena y prende cuando la temperatura excede a un cierto valor.
+
 <img src="Imagenes/Montaje/fotoMontaje1.jpg" width="500">
 <img src="Imagenes/Montaje/fotoMontaje2.jpg" width="500">
 
