@@ -1,10 +1,22 @@
 # Sistema Visualizador de mensajes
-Sistema para el despliegue de mensaje en una pantalla LCD, el objetivo es que al
-llegar un individuo pueda ver en un pequeño tablero electronico una serie de mensajes almacenados.
+## Descripción
+Consiste en un sistema para el despliegue de mensaje en una pantalla LCD, el objetivo es que al
+llegar un individuo pueda ver en un pequeño tablero electronico una serie de mensajes almacenados, y le permita agregar, eliminar o visualizar dichos mensajes mediante un teclado matricial. 
 
 <img src="Imagenes/Display/displayMensajeMostrandose.jpg" width="500">
 
-INTRODUCCION
+## Objetivos
+Cada mensaje tiene las siguientes caracteristicas:
+- Muestra un mensaje que se entiende, con sólo 140 caracteres de espacio.
+- Muestra fecha y hora en la que fue emitido el mensaje
+- Muestra un mensaje del estado del tiempo (temperatura, humedad, luminosidad)
+
+El sistema debe contener:
+- Un interfaz de hardware para navegar entre los mensajes.
+- Una interfaz de software para enviar los mensajes desde la computadora via serial.
+- La interfaz de software debe permitir agreagr mensajes y/o borrarlos.
+
+## Introducción
 
 La temperatura es producto de la energía interna de un cuerpo, que tiene una característica relevante: la termodinámica, o la capacidad de generar 
 energía cinética, que es energía que se produce por el movimiento, es decir, el movimiento de todas las partículas que conformas ese cuerpo específico.
@@ -15,19 +27,8 @@ relativa mediante la humedad relativa o grado de humedad. ... Por ambas razones 
 
 La luz se caracteriza por su naturaleza dual, dado que se comporta al mismo tiempo como una onda electromagnética (por tanto, energía) y como una 
 estructura integrada por pequeños corpúsculos denominados fotones (por tanto, materia). Esta condición permite explicar gran parte de sus propiedades 
-únicas, entre las que sobresale la capacidad de la luz de ser el objeto más veloz en el vacío, con una capacidad de desplazamiento de 300 mil kilómetros 
+únicas, entre las que sobresale la capacidad de la luz de ser el objeto más veloz en el vacío, con una capacidad de desplazamiento de 300 mil kilómetros 
 por segundo.
-
-## Objetivo
-Cada mensaje tiene las siguientes caracteristicas:
-- Muestra un mensaje que se entiende, con sólo 140 caracteres de espacio.
-- Muestra fecha y hora en la que fue emitido el mensaje
-- Muestra un mensaje del estado del tiempo (temperatura, humedad, luminosidad)
-
-El sistema debe contener:
-- Un interfaz de hardware para navegar entre los mensajes.
-- Una interfaz de software para enviar los mensajes desde la computadora via serial.
-- La interfaz de software debe permitir agreagr mensajes y/o borrarlos.
 
 ## Comenzando 🚀
 A continuación se explicarán los pre-requisitos, su instalación, etc.
@@ -191,8 +192,16 @@ sudo sh netbeans-8.1-linux.sh
 ## Control del teclado matricial
  - 1 - Ir al inicio de la lista de mensajes
  - 2 - Ir al mensaje anterior
- - 8 - Ir al mensaje posterior
- - 5 - Mostrar mensaje actual
+ - 3 - Ir al final de la lista de mensajes
+ - 4 - (En el modal agregar mensaje) Permite agregar el mensaje a la lista de mensajes
+ - 5 - Ir al mensaje posterior
+ - 6 - (En el modal agregar mensaje) Permite cancelar el agregado del mensaje
+ - 7 - Muestra la temperatura en el display
+ - 8 - Muestra la humedad en el display
+ - 9 - Muestra la luminosidad en el display
+ - A - Abre el modal para añadir un mensaje
+ - B - Muestra en el display el mensaje seleccionado
+ - C - Elimina el mensaje seleccionado
 
 ## Resultados 📌
  - Los 140 caracteres para cada mensaje son validados en la aplicación tras agregar mensaje
@@ -200,6 +209,11 @@ sudo sh netbeans-8.1-linux.sh
  - La aplicación cuenta con 3 botones para mostrar en el display la temperatura, humedad y luminosidad
  - La interfaz de hardware para navegar entre los mensajes es el teclado matricial
  - La interfaz de software que permite la comunicación serial, añadir y eliminar mensajes es la aplicación hecha en java (Netbeans IDE)
+ 
+ **NOTAS:** 
+ - Se tuvo que hacer uso de 2 arduinos, porque la cantidad de pines digitales del arduino uno no son suficientes para esta práctica.
+ - Si se desmontan los arduinos del ordenador, se tienen que cargar nuevamente los programas.ino a los arduinos, esto es para que el ordenador reconozca los puertos USB (USB0 y USB1), con la finalidad que los arduinos y NetBeans puedan detectarlos de igual manera.
+
  
   **Funcionalidad extra:**
  - Alarma que suena y prende cuando la temperatura excede a un cierto valor.
