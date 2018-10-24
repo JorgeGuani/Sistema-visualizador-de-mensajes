@@ -79,6 +79,7 @@ public class InterfazGraficaDisplay extends JFrame {
     private DefaultListModel model = new DefaultListModel();
     private DefaultListModel model2 = new DefaultListModel(); 
     private boolean climaPresionado = false;
+    private boolean agregandoMensaje = false;
     // Fin de la delaración de variables
     
     // Librería para la comunicación serial (envío de señales al arduino)
@@ -104,22 +105,62 @@ public class InterfazGraficaDisplay extends JFrame {
                 // Colocarse al inicio de la lista de mensajes                
                 listaMensajes.setSelectedIndex(0);
             }
+            if(printMessage.startsWith("3")) {
+                // Colocarse al final de la lista de mensajes
+                listaMensajes.setSelectedIndex(listaMensajes.getModel().getSize()-1);
+            }
             if(printMessage.startsWith("2")) {
                 if(listaMensajes.getSelectedIndex() != 0) {
                     // Avanza al siguiente mensaje
                     listaMensajes.setSelectedIndex(listaMensajes.getSelectedIndex()-1);
                 }
             }
-            if(printMessage.startsWith("8")) {
+            if(printMessage.startsWith("5")) {
                 // Retrocede al siguiente mensaje
                 if(listaMensajes.getSelectedIndex() != listaMensajes.getModel().getSize()-1) {
                     listaMensajes.setSelectedIndex(listaMensajes.getSelectedIndex()+1);
                 }
+            }            
+            if(printMessage.startsWith("A")) {
+                // Abre el modal para escribir un mensaje
+                agregarDesdeTecladoMatricial();
+                agregandoMensaje = true;
             }
-            if(printMessage.startsWith("5")) {
-                //Muestra en el display el mensaje seleccionado
+            if(printMessage.startsWith("4")) {
+                // Para cancelar el agregado de un mensaje
+                if(agregandoMensaje){
+                    cancelarAgregadoDesdeTecladoMatricial();
+                    agregandoMensaje = false;
+                }             
+            }
+            if(printMessage.startsWith("6")) {
+                // Para agregar un mensaje a la lista
+                if(agregandoMensaje){
+                    OKAgregadoDesdeTecladoMatricial();
+                    agregandoMensaje = false;
+                }             
+            }
+            if(printMessage.startsWith("B")) {
+                // Muestra en el display el mensaje seleccionado
                 mostrarDesdeTecladoMatricial();
             }
+            if(printMessage.startsWith("C")) {
+                // Elimina el mensaje seleccionado
+                eliminarDesdeTecladoMatricial();
+            }
+            if(printMessage.startsWith("7")) {
+                // Muestra en el display la temperatura
+                mostrarTemperaturaDesdeTecladoMatricial();
+            }
+            if(printMessage.startsWith("8")) {
+                // Muestra en el display la humedad
+                mostrarHumedadDesdeTecladoMatricial();
+            }
+            if(printMessage.startsWith("9")) {
+                //Muestra en el display la luminosidad
+                mostrarLuminosidadDesdeTecladoMatricial();
+            }
+            
         }
         
         private void mostrarDesdeTecladoMatricial() {
@@ -140,6 +181,77 @@ public class InterfazGraficaDisplay extends JFrame {
             }
             
         }   
+
+        private void agregarDesdeTecladoMatricial() {
+            txaMensaje.setText("");
+            panelInicial.setVisible(false);
+            panelAgregarMensaje.setVisible(true);
+            txaMensaje.requestFocus(true);
+        }
+
+        private void eliminarDesdeTecladoMatricial() {
+            //listaMensajes.setModel(model);
+            int index = listaMensajes.getSelectedIndex();
+            model.removeElementAt(index);
+            model2.removeElementAt(index);
+        }
+
+        private void mostrarTemperaturaDesdeTecladoMatricial() {
+            try {
+                arduino.sendData("1");
+            } catch (ArduinoException | SerialPortException ex) {
+                Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                arduino.sendData("1");
+            } catch (ArduinoException | SerialPortException ex) {
+                Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            climaPresionado = true;
+        }
+
+        private void mostrarHumedadDesdeTecladoMatricial() {
+            // Se envían 2 señales por si hay un retraso de comunicación
+            try {
+                arduino.sendData("2");
+            } catch (ArduinoException | SerialPortException ex) {
+                Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                arduino.sendData("2");
+            } catch (ArduinoException | SerialPortException ex) {
+                Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            climaPresionado = true;
+        }
+
+        private void mostrarLuminosidadDesdeTecladoMatricial() {
+            // Se envían 2 señales por si hay un retraso de comunicación
+            try {
+                arduino.sendData("3");
+            } catch (ArduinoException | SerialPortException ex) {
+                Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                arduino.sendData("3");
+            } catch (ArduinoException | SerialPortException ex) {
+                Logger.getLogger(InterfazGraficaDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            climaPresionado = true;
+        }
+
+        private void cancelarAgregadoDesdeTecladoMatricial() {
+            panelInicial.setVisible(true);
+            panelAgregarMensaje.setVisible(false);
+        }
+
+        private void OKAgregadoDesdeTecladoMatricial() {
+            listaMensajes.setModel(model);
+            validacionMensaje();
+            btnAgregar.requestFocus(true);
+            listaMensajes.setSelectedIndex(listaMensajes.getModel().getSize() - 1);
+        }
+        
     };
     
 
